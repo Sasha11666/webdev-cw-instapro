@@ -16,6 +16,8 @@ import {
   saveUserToLocalStorage,
 } from "./helpers.js";
 import { renderHeaderComponent } from "./components/header-component.js";
+import { manageLikes } from "./components/manage-likes.js";
+import { manageDelete } from "./components/delete-post.js";
 
 export let user = getUserFromLocalStorage();
 export let page = null;
@@ -74,8 +76,9 @@ export const goToPage = (newPage, data) => {
       // TODO: реализовать получение постов юзера из API
       console.log("Открываю страницу пользователя: ", data.userId);
       let id = data.userId;
-      return getUserData({id})
+      return getUserData({id, token: getToken()})
       .then((newPosts) => {
+          console.log(newPosts);
           page = USER_POSTS_PAGE;
           posts = newPosts;
           renderApp();
@@ -148,8 +151,9 @@ const renderApp = () => {
     </div>`
 
     let userPosts = appEl.querySelector('.posts');
-
+    
     userPosts.innerHTML = posts.map((post) => {
+      console.log(post.isLiked);
       return `<li class="post">
       <div class="post-header" data-user-id=${post.user.id}>
           <img src=${post.user.imageUrl} class="post-header__user-image">
@@ -158,12 +162,12 @@ const renderApp = () => {
       <div class="post-image-container">
         <img class="post-image" src=${post.imageUrl}>
       </div>
-      <div class="post-likes">
-        <button data-post-id=${post.id} class="like-button">
+      <div data-post-id=${post.id} data-liked=${post.isLiked} class="post-likes">
+        <button data-post-id=${post.id}  data-liked=${post.isLiked} class="like-button">
           <img ${ post.isLiked ? 'src="./assets/images/like-active.svg"' : 'src="./assets/images/like-not-active.svg"'}>
         </button>
         <p class="post-likes-text">
-          Нравится: <strong>${post.likes}</strong>
+          Нравится: <strong>${post.likes.length}</strong>
         </p>
       </div>
       <p class="post-text">
@@ -173,6 +177,7 @@ const renderApp = () => {
       <p class="post-date">
         ${post.createdAt}
       </p>
+      <button data-post-id=${post.id} class="delete-button">Удалить пост</button>
     </li>`
     })
     .join("");
@@ -180,6 +185,17 @@ const renderApp = () => {
     renderHeaderComponent({
       element: document.querySelector(".header-container"),
     });
+
+
+    manageLikes({
+      token: getToken()
+    });
+
+    let address = USER_POSTS_PAGE;
+    manageDelete({
+      token: getToken(),
+      address
+    })
 
     return;
   }

@@ -19,14 +19,16 @@ export function getPosts({ token }) {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
       return data.posts;
     });
 }
 
-export function getUserData({id}) {
+export function getUserData({id, token}) {
   return fetch(postsHost + `/user-posts/${id}`, {
     method: "GET",
+    headers: {
+      Authorization: token,
+    }
   })
   .then((response) => {
     if(response.status === 401) {
@@ -35,6 +37,8 @@ export function getUserData({id}) {
     return response.json()
   })
   .then((data) => {
+    console.log("!!!");
+    console.log(data);
     return data.posts;
   });
 }
@@ -117,6 +121,9 @@ export function addLike ({postId, token}) {
     }
   })
   .then((response) => {
+    if(response.status == 401) {
+      throw new Error('Нет авторизации')
+    }
     return response.json()
   })
 }
@@ -129,7 +136,24 @@ export function deleteLike({postId, token}) {
     }
   })
   .then((response) => {
+    if(response.status == 401) {
+      throw new Error('Нет авторизации')
+    }
     return response.json()
   })
-  
+}
+
+export function deletePost({postId, token}) {
+  return fetch(postsHost + `/${postId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: token,
+    }
+  })
+  .then((response) => {
+    if(response.status == 401) {
+      throw new Error('Нет авторизации')
+    }
+    return response.json()
+  })
 }

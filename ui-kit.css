@@ -52,13 +52,10 @@ p {
   background-color: #565eef;
   color: #ffffff;
   border: none;
+  cursor: pointer;
 }
 
-.description-edit-button {
-  padding: 8px 8px 8px;
-  font-size: 14px;
-  margin-left: 12px;
-}
+
 
 .link-button {
   display: inline;
@@ -171,4 +168,48 @@ strong {
     top: 24px;
     height: 32px;
   }
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-button{
+  background-color: white;
+  cursor: pointer;
+  border-radius: 24px;
+  padding: 8px;
+}
+
+.delete-button:hover {
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
+
+.upload-description-container {
+  width: 100%;
+  height: 32px;
+  margin-bottom: 12px;
+  margin-top: 12px;
+}
+
+.post-description {
+  width: 100%;
+  height: 32px;
+  border-radius: 5px;
+  font-size: 16px;
+  border-width: 1px;
+  padding-left: 8px;
+  padding-right: 8px;
+  box-sizing: border-box;
+}
+
+.add-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.add-page-title {
+  text-align: center;
 }
