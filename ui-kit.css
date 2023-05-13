@@ -177,15 +177,22 @@ strong {
 
 .delete-button{
   background-color: white;
+  border: none;
   cursor: pointer;
-  border-radius: 24px;
-  padding: 8px;
+ 
 }
 
-.delete-button:hover {
-  background-color: rgb(0, 0, 0);
-  color: white;
+.delete-img {
+  background-image: url(assets/images/waste.svg);
+  background-size: cover;
+  width: 26px;
+  height: 26px;
 }
+.delete-img:hover {
+  background-image: url(assets/images/waste-active.svg);
+  background-size: cover;
+}
+
 
 .upload-description-container {
   width: 100%;

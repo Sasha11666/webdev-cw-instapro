@@ -45,14 +45,16 @@ export function renderPostsPageComponent({ appEl, token }) {
     <div class="footer">
       <div class="text-block">
         <p class="post-text">
-          <span style="color: gray" class="user-name">${post.user.name}: </span>
-          ${post.description}
+          <span style="font-weight: 600" class="user-name">${post.user.name} </span>
+          <span style="font-weight: 200">${post.description}</span>
         </p>
         <p class="post-date">
           ${post.createdAt}
         </p>
       </div>
-      <button data-post-id=${post.id} class="delete-button">Удалить пост</button>
+      <button data-post-id=${post.id} class="delete-button">
+        <div class="delete-img"> </ div>
+      </button>
     </div>
   </li>`
   })

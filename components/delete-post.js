@@ -5,9 +5,13 @@ export const manageDelete = ({token, address}) => {
   for(let deleteButton of document.querySelectorAll(".delete-button")) {
     deleteButton.addEventListener("click", () => {
       let postId = deleteButton.dataset.postId;
+      let userId = deleteButton.dataset.userId;
       deletePost({token, postId})
       .then(() => {
-        manageDelete({token});
+          goToPage(address, {
+            userId,
+          });
+        
         goToPage(address);
       })
       .catch((err) => {

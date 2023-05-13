@@ -170,14 +170,20 @@ const renderApp = () => {
           Нравится: <strong>${post.likes.length}</strong>
         </p>
       </div>
-      <p class="post-text">
-        <span style="color: gray" class="user-name">${post.user.name}: </span>
-        ${post.description}
-      </p>
-      <p class="post-date">
-        ${post.createdAt}
-      </p>
-      <button data-post-id=${post.id} class="delete-button">Удалить пост</button>
+      <div class="footer">
+        <div class="text-block">
+          <p class="post-text">
+            <span style="color: gray" class="user-name">${post.user.name}: </span>
+            ${post.description}
+          </p>
+          <p class="post-date">
+            ${post.createdAt}
+          </p>
+        </div>
+        <button data-post-id=${post.id} data-user-id=${post.user.id} class="delete-button">
+          <div class="delete-img"> </ div>
+        </button>
+      </ div>
     </li>`
     })
     .join("");
