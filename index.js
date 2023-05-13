@@ -128,7 +128,9 @@ const renderApp = () => {
         // TODO: реализовать добавление поста в API
         console.log("Добавляю пост...", { description, imageUrl });
         postData({description, imageUrl, token: getToken()})
-        goToPage(POSTS_PAGE);
+        .then(() => {
+          goToPage(POSTS_PAGE);
+        })
       },
     });
   }
@@ -197,7 +199,7 @@ const renderApp = () => {
       token: getToken()
     });
 
-    let address = USER_POSTS_PAGE;
+    let address = 
     manageDelete({
       token: getToken(),
       address
