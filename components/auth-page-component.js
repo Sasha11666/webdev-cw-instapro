@@ -24,6 +24,7 @@ export function renderAuthPageComponent({ appEl, setUser }) {
                     !isLoginMode
                       ? `
                       <div class="upload-image-container"></div>
+                      <div class="under-image"></div>
                       <input type="text" id="name-input" class="input" placeholder="Имя" />
                       `
                       : ""
@@ -75,20 +76,58 @@ export function renderAuthPageComponent({ appEl, setUser }) {
       });
     }
 
+    const inputEls = document.querySelectorAll('.input');
+    for(const inputEl of inputEls) {
+      inputEl.addEventListener('change', () => {
+        const login = document.getElementById("login-input").value;
+        const password = document.getElementById("password-input").value;
+        
+        if(!isLoginMode) {
+          const name = document.getElementById("name-input").value;
+
+          document.getElementById("login-input").classList.remove('error');
+          document.getElementById("password-input").classList.remove('error');
+          document.getElementById("name-input").classList.remove('error');
+
+          if(!login) {
+            document.getElementById("login-input").classList.add('error');
+            return;
+          }else if(!password) {
+            document.getElementById("password-input").classList.add('error');
+            return;
+          } else if(!name) {
+            document.getElementById("name-input").classList.add('error');
+            return;
+          }
+        }
+          document.getElementById("login-input").classList.remove('error');
+          document.getElementById("password-input").classList.remove('error');
+  
+          if(!login) {
+            document.getElementById("login-input").classList.add('error');
+            return;
+          }else if(!password) {
+            document.getElementById("password-input").classList.add('error');
+            return;
+          }
+      })
+    }
+    
+
     document.getElementById("login-button").addEventListener("click", () => {
       setError("");
 
+      const login = document.getElementById("login-input").value;
+      const password = document.getElementById("password-input").value;
+
       if (isLoginMode) {
-        const login = document.getElementById("login-input").value;
-        const password = document.getElementById("password-input").value;
-
-        if (!login) {
-          alert("Введите логин");
+        document.getElementById("login-input").classList.remove('error');
+        document.getElementById("password-input").classList.remove('error');
+        if(!login) {
+          document.getElementById("login-input").classList.add('error');
           return;
-        }
-
-        if (!password) {
-          alert("Введите пароль");
+        }else if(!password) {
+          document.getElementById("password-input").classList.add('error');
           return;
         }
 
@@ -104,25 +143,26 @@ export function renderAuthPageComponent({ appEl, setUser }) {
             setError(error.message);
           });
       } else {
-        const login = document.getElementById("login-input").value;
         const name = document.getElementById("name-input").value;
+        const login = document.getElementById("login-input").value;
         const password = document.getElementById("password-input").value;
-        if (!name) {
-          alert("Введите имя");
+        appEl.querySelector(".under-image").textContent = "";
+     
+        document.getElementById("login-input").classList.remove('error');
+        document.getElementById("password-input").classList.remove('error');
+        document.getElementById("name-input").classList.remove('error');
+        document.querySelector('.upload-image-container').classList.remove('error');
+        if(!login) {
+          document.getElementById("login-input").classList.add('error');
           return;
-        }
-        if (!login) {
-          alert("Введите логин");
+        }else if(!password) {
+          document.getElementById("password-input").classList.add('error');
           return;
-        }
-
-        if (!password) {
-          alert("Введите пароль");
+        } else if(!name) {
+          document.getElementById("name-input").classList.add('error');
           return;
-        }
-
-        if (!imageUrl) {
-          alert("Не выбрана фотография");
+        } else if(!imageUrl) {
+          appEl.querySelector(".under-image").textContent = "Загрузите фотографию";
           return;
         }
 

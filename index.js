@@ -1,4 +1,4 @@
-import { getPosts } from "./api.js";
+import { getPosts, postData, getUserData } from "./api.js";
 import { renderAddPostPageComponent } from "./components/add-post-page-component.js";
 import { renderAuthPageComponent } from "./components/auth-page-component.js";
 import {
@@ -15,12 +15,15 @@ import {
   removeUserFromLocalStorage,
   saveUserToLocalStorage,
 } from "./helpers.js";
+import { renderHeaderComponent } from "./components/header-component.js";
 
 export let user = getUserFromLocalStorage();
 export let page = null;
 export let posts = [];
 
-const getToken = () => {
+
+
+export const getToken = () => {
   const token = user ? `Bearer ${user.token}` : undefined;
   return token;
 };
@@ -35,6 +38,7 @@ export const logout = () => {
  * Включает страницу приложения
  */
 export const goToPage = (newPage, data) => {
+  
   if (
     [
       POSTS_PAGE,
@@ -69,9 +73,17 @@ export const goToPage = (newPage, data) => {
     if (newPage === USER_POSTS_PAGE) {
       // TODO: реализовать получение постов юзера из API
       console.log("Открываю страницу пользователя: ", data.userId);
-      page = USER_POSTS_PAGE;
-      posts = [];
-      return renderApp();
+      let id = data.userId;
+      return getUserData({id})
+      .then((newPosts) => {
+          page = USER_POSTS_PAGE;
+          posts = newPosts;
+          renderApp();
+        })
+        .catch((error) => {
+          console.error(error);
+          goToPage(USER_POSTS_PAGE);
+        });
     }
 
     page = newPage;
@@ -112,6 +124,7 @@ const renderApp = () => {
       onAddPostClick({ description, imageUrl }) {
         // TODO: реализовать добавление поста в API
         console.log("Добавляю пост...", { description, imageUrl });
+        postData({description, imageUrl, token: getToken()})
         goToPage(POSTS_PAGE);
       },
     });
@@ -120,12 +133,54 @@ const renderApp = () => {
   if (page === POSTS_PAGE) {
     return renderPostsPageComponent({
       appEl,
+      token: getToken()
     });
+    
+   
   }
 
   if (page === USER_POSTS_PAGE) {
     // TODO: реализовать страницу фотографию пользвателя
-    appEl.innerHTML = "Здесь будет страница фотографий пользователя";
+    appEl.innerHTML = `
+    <div class="page-container">
+      <div class="header-container"></div>
+      <ul class="posts"></ul>
+    </div>`
+
+    let userPosts = appEl.querySelector('.posts');
+
+    userPosts.innerHTML = posts.map((post) => {
+      return `<li class="post">
+      <div class="post-header" data-user-id=${post.user.id}>
+          <img src=${post.user.imageUrl} class="post-header__user-image">
+          <p class="post-header__user-name">${post.user.name}</p>
+      </div>
+      <div class="post-image-container">
+        <img class="post-image" src=${post.imageUrl}>
+      </div>
+      <div class="post-likes">
+        <button data-post-id=${post.id} class="like-button">
+          <img ${ post.isLiked ? 'src="./assets/images/like-active.svg"' : 'src="./assets/images/like-not-active.svg"'}>
+        </button>
+        <p class="post-likes-text">
+          Нравится: <strong>${post.likes}</strong>
+        </p>
+      </div>
+      <p class="post-text">
+        <span style="color: gray" class="user-name">${post.user.name}: </span>
+        ${post.description}
+      </p>
+      <p class="post-date">
+        ${post.createdAt}
+      </p>
+    </li>`
+    })
+    .join("");
+
+    renderHeaderComponent({
+      element: document.querySelector(".header-container"),
+    });
+
     return;
   }
 };
