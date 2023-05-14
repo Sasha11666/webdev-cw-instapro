@@ -5,7 +5,8 @@ export const manageLikes = ({token}) => {
     likeButton.addEventListener("click", () => {
       let postId = likeButton.dataset.postId;
       let isLiked = likeButton.dataset.liked;
-      likeButton.classList.add("-loading-like");
+
+      token && likeButton.classList.add("-loading-like");
 
 
       if(isLiked == 'false') {

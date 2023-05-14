@@ -7,7 +7,8 @@ export const manageDelete = ({token, address, user}) => {
       let postId = deleteButton.dataset.postId;
       let userId = deleteButton.dataset.userId;
       
-      if(user._id === userId) {
+      
+      if(token && user._id === userId) {
         deletePost({token, postId})
         .then(() => {
             goToPage(address, {
@@ -17,8 +18,13 @@ export const manageDelete = ({token, address, user}) => {
         .catch((err) => {
           console.log(err.message);
         })
-      } else {
+      } else if(token && user._id !== userId){
         alert('Вы можете удалять только свои посты');
+      } else {
+        deletePost({token})
+        .catch((err) => {
+          console.log(err.message);
+        })
       }
      
     })

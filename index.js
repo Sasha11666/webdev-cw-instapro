@@ -18,6 +18,8 @@ import {
 import { renderHeaderComponent } from "./components/header-component.js";
 import { manageLikes } from "./components/manage-likes.js";
 import { manageDelete } from "./components/delete-post.js";
+import { formatDistanceToNow } from "date-fns";
+import { ru } from 'date-fns/locale';
 
 export let user = getUserFromLocalStorage();
 export let page = null;
@@ -84,7 +86,7 @@ export const goToPage = (newPage, data) => {
           renderApp();
         })
         .catch((error) => {
-          console.error(error);
+          console.log(error);
           goToPage(USER_POSTS_PAGE);
         });
     }
@@ -156,7 +158,7 @@ const renderApp = () => {
     let userPosts = appEl.querySelector('.posts');
     
     userPosts.innerHTML = posts.map((post) => {
-      console.log(post.isLiked);
+      let createDate = formatDistanceToNow(new Date(post.createdAt), { locale: ru});
       return `<li class="post">
       <div class="post-header" data-user-id=${post.user.id}>
           <img src=${post.user.imageUrl} class="post-header__user-image">
@@ -180,7 +182,7 @@ const renderApp = () => {
             ${post.description}
           </p>
           <p class="post-date">
-            ${post.createdAt}
+            ${createDate} назад
           </p>
         </div>
         <button data-post-id=${post.id} data-user-id=${post.user.id} class="delete-button">
@@ -194,7 +196,6 @@ const renderApp = () => {
     renderHeaderComponent({
       element: document.querySelector(".header-container"),
     });
-
 
     manageLikes({
       token: getToken()

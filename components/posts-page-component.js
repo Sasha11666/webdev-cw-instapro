@@ -3,6 +3,9 @@ import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage } from "../index.js";
 import { manageDelete } from "./delete-post.js";
 import { manageLikes } from "./manage-likes.js";
+import { formatDistanceToNow } from "date-fns";
+import { ru } from 'date-fns/locale';
+
 
 
 export function renderPostsPageComponent({ appEl, token, user }) {
@@ -13,7 +16,7 @@ export function renderPostsPageComponent({ appEl, token, user }) {
    * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
    * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
    */
-  
+
   let appHTML = `
     <div class="page-container">
       <div class="header-container"></div>
@@ -26,6 +29,7 @@ export function renderPostsPageComponent({ appEl, token, user }) {
 
   let postsHTML;
   postsHTML = posts.map((post) => {
+    let createDate = formatDistanceToNow(new Date(post.createdAt), { locale: ru});
     return `<li class="post">
     <div class="post-header" data-user-id=${post.user.id}>
         <img src=${post.user.imageUrl} class="post-header__user-image">
@@ -51,7 +55,7 @@ export function renderPostsPageComponent({ appEl, token, user }) {
           <span style="font-weight: 200">${post.description}</span>
         </p>
         <p class="post-date">
-          ${post.createdAt}
+          ${createDate} назад
         </p>
       </div>
       <button data-post-id=${post.id} data-user-id=${post.user.id} class="delete-button">
