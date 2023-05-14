@@ -32,7 +32,9 @@ export function renderPostsPageComponent({ appEl, token }) {
         <p class="post-header__user-name">${post.user.name}</p>
     </div>
     <div class="post-image-container">
+      
       <img class="post-image" src=${post.imageUrl}>
+      
     </div>
     <div data-post-id=${post.id} data-liked=${post.isLiked} class="post-likes">
       <button data-post-id=${post.id} data-liked=${post.isLiked}  class="like-button">

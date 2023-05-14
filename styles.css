@@ -35,8 +35,35 @@
 }
 
 .logout-button {
-  width: 130px;
-  text-align: right;
+  border: 2px solid transparent;
+  border-radius: 30px;
+  width: 80px;
+  display: flex;
+  justify-content: center;
+  height: 30px;
+  background-color: #565eef;
+  align-items: center;
+  color: white;
+}
+
+.logout-button:hover {
+  background-color: #6d73ff;
+}
+
+.login-header-button {
+  border: 2px solid transparent;
+  border-radius: 30px;
+  width: 80px;
+  display: flex;
+  justify-content: center;
+  height: 30px;
+  background-color: #565eef;
+  align-items: center;
+  color: white;
+}
+
+.login-header-button:hover {
+  background-color: #6d73ff;
 }
 
 .posts {
@@ -72,7 +99,6 @@
   display: flex;
   justify-content: center;
   background-color: #e0e0e0;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   max-width: 500px;
 }
 
@@ -200,4 +226,90 @@
   box-sizing: border-box;
   width: 100%;
   text-align: center;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-button{
+  background-color: white;
+  border: none;
+  cursor: pointer;
+ 
+}
+
+.delete-img {
+  background-image: url(assets/images/waste.svg);
+  background-size: cover;
+  width: 26px;
+  height: 26px;
+}
+.delete-img:hover {
+  background-image: url(assets/images/waste-active.svg);
+  background-size: cover;
+}
+
+
+.upload-description-container {
+  width: 100%;
+  height: 32px;
+  margin-bottom: 12px;
+  margin-top: 12px;
+}
+
+.post-description {
+  width: 100%;
+  height: 32px;
+  border-radius: 5px;
+  font-size: 16px;
+  border-width: 1px;
+  padding-left: 8px;
+  padding-right: 8px;
+  box-sizing: border-box;
+}
+
+.add-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.add-page-title {
+  text-align: center;
+}
+
+@media (min-height: 501px) {
+  .post-image-container {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+}
+
+@media (max-width: 500px) {
+  .post-image-container {
+    margin: auto;
+    max-height: 400px;
+    display: flex;
+    justify-content: center;
+    background-color: #ffffff;
+    max-width: 500px;
+  }
+  
+  .post-image {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    object-fit: contain;
+  }
+
+  .delete-img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  .post-image-container {
+    max-height: 260px;
+  }
 }

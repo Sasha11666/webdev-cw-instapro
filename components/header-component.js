@@ -5,19 +5,19 @@ export function renderHeaderComponent({ element }) {
   element.innerHTML = `
   <div class="page-header">
       <h1 class="logo">instapro</h1>
-      <button class="header-button add-or-login-button">
+      
       ${
         user
-          ? `<div title="Добавить пост" class="add-post-sign"></div>`
-          : "Войти"
+          ? `<button class="add-or-login-button header-button"><div title="Добавить пост" class="add-post-sign"></div></ button>`
+          : `<button class="header-button add-or-login-button login-header-button">Войти</ button>`
       }
-      </button>
+     
       ${
         user
           ? `<button title="${user.name}" class="header-button logout-button">Выйти</button>`
           : ""
       }  
-      </button>
+      
   </div>
   
 `;

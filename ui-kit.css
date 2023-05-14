@@ -3,6 +3,21 @@
   всего приложения: шрифты, кнопки, инпуты и так далее
 */
 
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(30deg);;
+  }
+  75% {
+    transform: rotate(-30deg);;
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
 @font-face {
   font-family: "StratosSkyeng";
   font-style: normal;
@@ -170,53 +185,8 @@ strong {
   }
 }
 
-.footer {
-  display: flex;
-  justify-content: space-between;
-}
-
-.delete-button{
-  background-color: white;
-  border: none;
-  cursor: pointer;
- 
-}
-
-.delete-img {
-  background-image: url(assets/images/waste.svg);
-  background-size: cover;
-  width: 26px;
-  height: 26px;
-}
-.delete-img:hover {
-  background-image: url(assets/images/waste-active.svg);
-  background-size: cover;
+.-loading-like {
+  animation: rotating 2s linear infinite;
 }
 
 
-.upload-description-container {
-  width: 100%;
-  height: 32px;
-  margin-bottom: 12px;
-  margin-top: 12px;
-}
-
-.post-description {
-  width: 100%;
-  height: 32px;
-  border-radius: 5px;
-  font-size: 16px;
-  border-width: 1px;
-  padding-left: 8px;
-  padding-right: 8px;
-  box-sizing: border-box;
-}
-
-.add-button-container {
-  display: flex;
-  justify-content: center;
-}
-
-.add-page-title {
-  text-align: center;
-}

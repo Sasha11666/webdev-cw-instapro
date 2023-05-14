@@ -5,15 +5,13 @@ export const manageLikes = ({token}) => {
     likeButton.addEventListener("click", () => {
       let postId = likeButton.dataset.postId;
       let isLiked = likeButton.dataset.liked;
-      console.log(isLiked);
-      console.log(postId);
-      console.log(token);
+      likeButton.classList.add("-loading-like");
+
 
       if(isLiked == 'false') {
         addLike({postId, token})
         .then((data) => {
-          console.log(data);
-          console.log(document.querySelectorAll(".post-likes"));
+          likeButton.classList.remove("-loading-like");
           
           for(let likeBlock of document.querySelectorAll(".post-likes")) {
             if(likeBlock.dataset.postId === postId) {
@@ -36,8 +34,7 @@ export const manageLikes = ({token}) => {
       } else if(isLiked == 'true') {
         deleteLike({postId, token})
         .then((data) => {
-          console.log(data);
-          console.log(document.querySelectorAll(".post-likes"));
+          likeButton.classList.remove("-loading-like");
 
           for(let likeBlock of document.querySelectorAll(".post-likes")) {
             if(likeBlock.dataset.postId === postId) {
