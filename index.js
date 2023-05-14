@@ -67,7 +67,7 @@ export const goToPage = (newPage, data) => {
           renderApp();
         })
         .catch((error) => {
-          console.error(error);
+          console.log(error);
           goToPage(POSTS_PAGE);
         });
     }
@@ -199,7 +199,7 @@ const renderApp = () => {
       token: getToken()
     });
 
-    let address = 
+    let address = USER_POSTS_PAGE;
     manageDelete({
       token: getToken(),
       address

@@ -11,8 +11,6 @@ export const manageDelete = ({token, address}) => {
           goToPage(address, {
             userId,
           });
-        
-        goToPage(address);
       })
       .catch((err) => {
         console.log(err.message);
