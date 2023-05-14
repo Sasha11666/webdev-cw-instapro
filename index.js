@@ -138,7 +138,8 @@ const renderApp = () => {
   if (page === POSTS_PAGE) {
     return renderPostsPageComponent({
       appEl,
-      token: getToken()
+      token: getToken(),
+      user
     });
     
    
@@ -202,7 +203,8 @@ const renderApp = () => {
     let address = USER_POSTS_PAGE;
     manageDelete({
       token: getToken(),
-      address
+      address,
+      user
     })
 
     return;

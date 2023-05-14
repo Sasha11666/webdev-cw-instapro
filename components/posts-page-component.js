@@ -5,7 +5,7 @@ import { manageDelete } from "./delete-post.js";
 import { manageLikes } from "./manage-likes.js";
 
 
-export function renderPostsPageComponent({ appEl, token }) {
+export function renderPostsPageComponent({ appEl, token, user }) {
   // TODO: реализовать рендер постов из api
   console.log("Актуальный список постов:", posts);
 
@@ -54,7 +54,7 @@ export function renderPostsPageComponent({ appEl, token }) {
           ${post.createdAt}
         </p>
       </div>
-      <button data-post-id=${post.id} class="delete-button">
+      <button data-post-id=${post.id} data-user-id=${post.user.id} class="delete-button">
         <div class="delete-img"> </ div>
       </button>
     </div>
@@ -77,7 +77,7 @@ export function renderPostsPageComponent({ appEl, token }) {
     });
   }
   let address = POSTS_PAGE;
-  manageDelete({token, address});
+  manageDelete({token, address, user});
   manageLikes({token});
 
 }
